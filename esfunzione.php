@@ -1,5 +1,4 @@
 <?php
-// ESERCIZIO PASSWORD FUNZIONE
 
 // REGOLE
 // 1 - PASSWORD CHE SIA LUNGA 8 CARATTERI
@@ -7,88 +6,107 @@
 // 3 - PASSWORD CHE CONTENGA ALMENO UN CARATTERE MAIUSCOLO
 // 4 - PASSWORD CHE CONTENTA ALMENO UN CARATTERE SPECIALE
 
+// $password = readline("Inserisci la tua password : \n");
 
-$password = readline("Inserisci la password: \n");
+//  PASSWORD CHE SIA LUNGA 8 CARATTERI
 
-echo "Password inserita: " . $password . "\n";
-
-// 1 - PASSWORD CHE SIA LUNGA ALMENO 8 CARATTERI
-function checkLunghezza($pwd) {
-    if(strlen($pwd) >= 8) {
-        echo "La password è lunga almeno 8 caratteri \n";
+function checkLunghezza($stringa){
+    if(strlen($stringa) >= 8){
         return true;
-    } else {
-        echo "La password deve essere lunga almeno 8 caratteri \n";
+    }
+    else{
+        echo "La password deve contenere almeno 8 caratteri \n";
         return false;
     }
 }
 
-// 2 - PASSWORD CHE CONTENGA UN NUMERO
-function checkNumber($pwd) {
-    for ($i = 0; $i < strlen($pwd); $i++) { 
-        if(is_numeric($pwd[$i])) {
-            echo "La tua password contiene un numero \n";
+// VARIABILE DI APPOGGIO PER TEST
+
+// $first_rule = checkLunghezza($password);
+
+
+// PASSWORD CHE CONTENGA ALMENO UN CARATTERE MAIUSCOLO
+
+function checkUpper($stringa){
+    for ($i=0; $i <strlen($stringa); $i++) { 
+
+        if(ctype_upper($stringa[$i])){
             return true;
         }
     }
-    echo "La password deve contenere almeno un numero \n";
-    return false;
-}
- 
-// 3 - PASSWORD CHE CONTENGA ALMENO UN CARATTERE MAIUSCOLO
-function checkUpperCase($pwd) {
-    for ($i = 0; $i < strlen($pwd); $i++) { 
-        if(ctype_upper($pwd[$i])) {
-            echo "La password contiene un carattere maiuscolo \n";
-            return true;
-        }
-    }
-    echo "La password deve contenere almeno un carattere maiuscolo \n";
+    echo "Manca la lettera maiuscola \n";
     return false;
 }
 
-// 4 - PASSWORD CHE CONTENGA ALMENO UN CARATTERE SPECIALE
-const SPECIAL_CHARS = ["!", "@", "#"];
+// $second_rule = checkUpper($password);
 
-function checkSpecialChar($pwd) {
-    for ($i = 0; $i < strlen($pwd); $i++) { 
-        if(in_array($pwd[$i], SPECIAL_CHARS)) {
-            echo "La password contiene un carattere speciale \n";
-            return true;
-        }
+
+// PASSWORD CHE CONTENGA UN NUMERO
+
+
+function Number($stringa){
+ for ($i=0; $i < strlen($stringa) ; $i++) { 
+    if (is_numeric($stringa[$i])) {
+        return true;
     }
-    echo "La password deve contenere almeno un carattere speciale \n";
-    return false;
+ }
+   echo "Devi inserire un numero \n";
+   return false;
+
 }
 
-// Funzione principale per controllare la password
-function checkPassword($pwd) {
-    $first_rule = checkLunghezza($pwd);
-    $second_rule = checkNumber($pwd);
-    $third_rule = checkUpperCase($pwd);
-    $fourth_rule = checkSpecialChar($pwd);
+// $third_rule = Number($password);
 
-    if($first_rule && $second_rule && $third_rule && $fourth_rule) {
-        echo "Password Accettata \n";
-    } else {
-        echo "Password Non Accettata \n";
+
+
+
+// PASSWORD CHE CONTENTA ALMENO UN CARATTERE SPECIALE
+
+
+function checkSpecial($stringa){
+
+    $specialChars = ["!" , "@", "#" , "?" ];
+
+
+   for ($i=0; $i < strlen($stringa) ; $i++) { 
+    
+    if(in_array($stringa[$i] , $specialChars)){
+       return true;
+
     }
+
+   }
+
+   echo "Almeno un carattere speciale \n";
+   return false;
 }
 
-// Verifica della password
-checkPassword($password);
+// $fouth_rule = checkSpecial($password);
+
+
+function password($stringa){
+    $first_rule = checkLunghezza($stringa);
+    $second_rule = checkUpper($stringa);
+    $third_rule = Number($stringa);
+    $fourth_rule = checkSpecial($stringa);
+
+    
+   if ($first_rule && $second_rule && $third_rule && $fourth_rule) {
+       echo "Password Accettata! \n";
+
+   }
+    return $first_rule && $second_rule && $third_rule && $fourth_rule;
+}
+
+$password = readline("Scrivi la tua password \n");
+// var_dump(password($password));
 
 
 
+do {
+    $password = readline("Scrivi la tua password \n");
 
-
-
-
-
-
-
-
-
+} while(!Password($password));
 
 
 ?>
